@@ -19,25 +19,31 @@ body {
 }
 
 .map-panel {
-  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20rem;
   width: 100%;
   height: 100%;
 }
 
+.map-area,
 .map {
   width: 100%;
   height: 100%;
 }
 
+.info-panel {
+  overflow-y: auto;
+  padding: 1rem;
+  background: #f8fafc;
+}
+
+.button-placeholder {
+  height: 2.5rem;
+}
+
 .source-label {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1000;
-  margin: 0;
-  padding: 0.5rem 0.75rem;
-  background: rgb(255 255 255 / 90%);
-  border-radius: 0.25rem;
+  margin: 0 0 1rem;
+  font-weight: 600;
 }
 
 .vessel-marker {
@@ -65,4 +71,34 @@ body {
   margin: 2px;
   background: #4b5563;
   border-radius: 50%;
+}
+
+.vessel-card {
+  padding: 1rem;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+}
+
+.vessel-card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.vessel-card dl {
+  margin: 0;
+}
+
+.vessel-card dl > div {
+  margin-bottom: 0.75rem;
+}
+
+.vessel-card dt {
+  color: #475569;
+  font-size: 0.8rem;
+}
+
+.vessel-card dd {
+  margin: 0.15rem 0 0;
+  overflow-wrap: anywhere;
 }

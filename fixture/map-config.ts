@@ -20,14 +20,4 @@ export const DEMO_VESSELS: readonly Vessel[] = [
     timestamp: "2026-09-13T12:00:00Z",
     source: "demo",
   },
-  {
-    id: "demo-2",
-    name: "Демо-судно 2",
-    lat: 51.1,
-    lon: 1.5,
-    speedKnots: 12,
-    courseDeg: 135,
-    timestamp: "2026-09-13T12:00:00Z",
-    source: "demo",
-  },
 ];
