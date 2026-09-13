@@ -1,8 +1,12 @@
+import Map from "./map-client";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Sea Radar</h1>
-      <p>Le projet est prêt pour la première étape.</p>
+    <main className="sea-radar">
+      <div className="map-panel">
+        <Map />
+        <p className="source-label">Демонстрационные данные</p>
+      </div>
     </main>
   );
 }
