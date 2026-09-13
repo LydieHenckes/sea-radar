@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.sea-radar {
+  width: 100%;
+  height: 100%;
+}
+
+.map-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20rem;
+  width: 100%;
+  height: 100%;
+}
+
+.map-area,
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.info-panel {
+  overflow-y: auto;
+  padding: 1rem;
+  background: #f8fafc;
+}
+
+.button-placeholder {
+  height: 2.5rem;
+}
+
+.source-label {
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+.vessel-marker {
+  background: transparent;
+  border: 0;
+}
+
+.vessel-icon,
+.neutral-vessel-icon {
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.vessel-icon {
+  border-right: 8px solid transparent;
+  border-bottom: 18px solid #d64545;
+  border-left: 8px solid transparent;
+  transform-origin: 50% 50%;
+}
+
+.neutral-vessel-icon {
+  width: 14px;
+  height: 14px;
+  margin: 2px;
+  background: #4b5563;
+  border-radius: 50%;
+}
+
+.vessel-card {
+  padding: 1rem;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+}
+
+.vessel-card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.vessel-card dl {
+  margin: 0;
+}
+
+.vessel-card dl > div {
+  margin-bottom: 0.75rem;
+}
+
+.vessel-card dt {
+  color: #475569;
+  font-size: 0.8rem;
+}
+
+.vessel-card dd {
+  margin: 0.15rem 0 0;
+  overflow-wrap: anywhere;
+}
