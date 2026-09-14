@@ -1,15 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Dispatch, SetStateAction } from "react";
 import type { Vessel } from "../types/vessel";
 
 const ClientMap = dynamic(() => import("./map"), { ssr: false });
 
 type MapClientProps = {
-  onSelectVessel: Dispatch<SetStateAction<Vessel | null>>;
+  vessels: readonly Vessel[];
+  onSelectVessel: (id: string) => void;
 };
 
-export default function MapClient({ onSelectVessel }: MapClientProps) {
-  return <ClientMap onSelectVessel={onSelectVessel} />;
+export default function MapClient({ vessels, onSelectVessel }: MapClientProps) {
+  return <ClientMap vessels={vessels} onSelectVessel={onSelectVessel} />;
 }
