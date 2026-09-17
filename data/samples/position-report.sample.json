@@ -1,0 +1,32 @@
+{
+  "MetaData": {
+    "MMSI": 304080000,
+    "MMSI_String": "304080000",
+    "ShipName": "AURORA",
+    "latitude": 50.97606,
+    "longitude": 1.28109,
+    "time_utc": "2026-09-17 19:14:15.226348336 +0000 UTC"
+  },
+  "MessageType": "PositionReport",
+  "Message": {
+    "PositionReport": {
+      "MessageID": 1,
+      "RepeatIndicator": 0,
+      "UserID": 304080000,
+      "Valid": true,
+      "NavigationalStatus": 0,
+      "RateOfTurn": 0,
+      "Sog": 13.6,
+      "PositionAccuracy": false,
+      "Longitude": 1.2810866666666667,
+      "Latitude": 50.976058333333334,
+      "Cog": 228.2,
+      "TrueHeading": 228,
+      "Timestamp": 14,
+      "SpecialManoeuvreIndicator": 0,
+      "Spare": 0,
+      "Raim": false,
+      "CommunicationState": 49275
+    }
+  }
+}
