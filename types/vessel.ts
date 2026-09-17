@@ -1,5 +1,10 @@
 export type VesselSource = "demo" | "aisstream";
 
+export type RoutePoint = {
+  lat: number;
+  lon: number;
+};
+
 export type Vessel = {
   id: string;
   name: string | null;
@@ -9,4 +14,5 @@ export type Vessel = {
   courseDeg: number | null;
   timestamp: string;
   source: VesselSource;
+  route?: readonly RoutePoint[];
 };

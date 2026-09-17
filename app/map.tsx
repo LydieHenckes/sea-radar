@@ -1,19 +1,26 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Dispatch, SetStateAction } from "react";
 import type { Vessel } from "../types/vessel";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { DEMO_VESSELS, MAP_CONFIG } from "../fixture/map-config";
+import { MAP_CONFIG } from "../fixture/map-config";
 import { createVesselIcon } from "../components/VesselMarker";
 
 type MapProps = {
-  onSelectVessel: Dispatch<SetStateAction<Vessel | null>>;
+  vessels: readonly Vessel[];
+  onSelectVessel: (id: string) => void;
 };
 
-export default function Map({ onSelectVessel }: MapProps) {
+export default function Map({ vessels, onSelectVessel }: MapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const markersRef = useRef(new globalThis.Map<string, L.Marker>());
+  const onSelectVesselRef = useRef(onSelectVessel);
+
+  useEffect(() => {
+    onSelectVesselRef.current = onSelectVessel;
+  }, [onSelectVessel]);
 
   useEffect(() => {
     if (!mapContainerRef.current) {
@@ -24,6 +31,7 @@ export default function Map({ onSelectVessel }: MapProps) {
       MAP_CONFIG.center,
       MAP_CONFIG.zoom,
     );
+    mapRef.current = map;
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors",
@@ -31,13 +39,6 @@ export default function Map({ onSelectVessel }: MapProps) {
     }).addTo(map);
 
     map.setMaxBounds(MAP_CONFIG.bounds);
-    DEMO_VESSELS.forEach((vessel) => {
-      L.marker([vessel.lat, vessel.lon], {
-        icon: createVesselIcon(vessel),
-      })
-        .on("click", () => onSelectVessel(vessel))
-        .addTo(map);
-    });
     map.invalidateSize();
 
     const handleResize = () => map.invalidateSize();
@@ -45,9 +46,41 @@ export default function Map({ onSelectVessel }: MapProps) {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      markersRef.current.forEach((marker) => marker.remove());
+      markersRef.current.clear();
       map.remove();
+      mapRef.current = null;
     };
-  }, [onSelectVessel]);
+  }, []);
 
-  return <div ref={mapContainerRef} className="map" aria-label="Carte du détroit de Douvres" />;
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) {
+      return;
+    }
+
+    const vesselIds = new Set(vessels.map((vessel) => vessel.id));
+    markersRef.current.forEach((marker, id) => {
+      if (!vesselIds.has(id)) {
+        marker.remove();
+        markersRef.current.delete(id);
+      }
+    });
+
+    vessels.forEach((vessel) => {
+      let marker = markersRef.current.get(vessel.id);
+      if (!marker) {
+        marker = L.marker([vessel.lat, vessel.lon], {
+          icon: createVesselIcon(vessel),
+        }).on("click", () => onSelectVesselRef.current(vessel.id));
+        markersRef.current.set(vessel.id, marker);
+        marker.addTo(map);
+      } else {
+        marker.setLatLng([vessel.lat, vessel.lon]);
+        marker.setIcon(createVesselIcon(vessel));
+      }
+    });
+  }, [vessels]);
+
+  return <div ref={mapContainerRef} className="map" aria-label="Карта Дуврского пролива" />;
 }
