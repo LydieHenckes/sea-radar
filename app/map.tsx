@@ -10,9 +10,10 @@ import { createVesselIcon } from "../components/VesselMarker";
 type MapProps = {
   vessels: readonly Vessel[];
   onSelectVessel: (id: string) => void;
+  resetViewKey: number;
 };
 
-export default function Map({ vessels, onSelectVessel }: MapProps) {
+export default function Map({ vessels, onSelectVessel, resetViewKey }: MapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef(new globalThis.Map<string, L.Marker>());
@@ -81,6 +82,10 @@ export default function Map({ vessels, onSelectVessel }: MapProps) {
       }
     });
   }, [vessels]);
+
+  useEffect(() => {
+    mapRef.current?.setView(MAP_CONFIG.center, MAP_CONFIG.zoom);
+  }, [resetViewKey]);
 
   return <div ref={mapContainerRef} className="map" aria-label="Карта Дуврского пролива" />;
 }

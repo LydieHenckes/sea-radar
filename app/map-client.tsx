@@ -8,8 +8,19 @@ const ClientMap = dynamic(() => import("./map"), { ssr: false });
 type MapClientProps = {
   vessels: readonly Vessel[];
   onSelectVessel: (id: string) => void;
+  resetViewKey: number;
 };
 
-export default function MapClient({ vessels, onSelectVessel }: MapClientProps) {
-  return <ClientMap vessels={vessels} onSelectVessel={onSelectVessel} />;
+export default function MapClient({
+  vessels,
+  onSelectVessel,
+  resetViewKey,
+}: MapClientProps) {
+  return (
+    <ClientMap
+      vessels={vessels}
+      onSelectVessel={onSelectVessel}
+      resetViewKey={resetViewKey}
+    />
+  );
 }
